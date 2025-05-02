@@ -1,17 +1,27 @@
-import { Outlet, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/stores/authStore';
+import { Outlet } from 'react-router-dom'
+import { useAuth } from '@/hooks/useAuth';
+import { Loader } from '@/components/shared/Loader';
+import { Icon } from '@iconify/react';
+import '@/assets/sass/custom/layoutAdmin.scss'
 
 export const LayoutAdmin = () => {
-  const navigate = useNavigate();
-  const { sesion, logout } = useAuthStore();
-
+  const { logout, isLoggingOut, sesion } = useAuth();
   return (
-    <main className="admin">
-      <header>
-        <h2>Bienvenido {sesion.user}</h2>
-        <button onClick={logout}>Cerrar sesión</button>
-      </header>
-      <Outlet />
+    <main class="admin">
+      <article class="admin__body">
+        <section class="admin__modules-box">
+          <div class="admin__modules-header">
+            <div class="admin__modules-info-user">
+              <Icon icon="mdi:account-circle" width="40" height="40" />
+              <h5>{sesion.user}</h5>
+              <button onClick={logout} disabled={isLoggingOut}>
+                {isLoggingOut ? <Loader size="small" /> : "Cerrar sesión"}
+              </button>
+            </div>
+          </div>
+          <Outlet />
+        </section>
+      </article>
     </main>
   );
-};
+}

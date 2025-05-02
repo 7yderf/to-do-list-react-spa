@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 
 export const useAuth = () => {
   const navigate = useNavigate();
-  const { setUser, logout: storeLogout } = useAuthStore();
+  const { setUser, logout: storeLogout, sesion } = useAuthStore();
 
   const loginMutation = useMutation({
     mutationFn: async (credentials) => {
@@ -44,10 +44,13 @@ export const useAuth = () => {
     },
     onError: (error) => {
       showAlert('error', error.response?.data?.message || 'Error al cerrar sesión');
+      storeLogout();
+      navigate('/login');
     }
   });
 
   return {
+    sesion,
     login: loginMutation.mutate,
     logout: logoutMutation.mutate,
     isLoggingIn: loginMutation.isPending,

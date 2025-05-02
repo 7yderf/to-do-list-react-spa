@@ -44,7 +44,9 @@ export const router = createBrowserRouter([
 // Loader para rutas protegidas
 async function authLoader() {
   const token = JwtService.getToken();
-  if (!token) return redirect('/login');
+  if (!token) {
+    return redirect('/login?redirect=' + encodeURIComponent(window.location.pathname));
+  }
   return null;
 }
 
