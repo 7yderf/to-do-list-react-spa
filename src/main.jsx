@@ -5,6 +5,7 @@ import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
 import './assets/sass/style.scss'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'sweetalert2/dist/sweetalert2.min.css'
 
 const queryClient = new QueryClient({

@@ -22,8 +22,8 @@ class ApiService {
     return axios.get(resource, params);
   }
 
-  static get(resource, slug = '') {
-    return axios.get(`${resource}/${slug}`);
+  static get(resource) {
+    return axios.get(`${resource}`);
   }
 
   static post(resource, params, config = {}) {
