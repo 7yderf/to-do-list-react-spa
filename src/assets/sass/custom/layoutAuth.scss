@@ -1,0 +1,55 @@
+@import "./Mixins";
+
+$BG : var(--bg-color);
+
+.auth{
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(246, 246, 246, 0.439);
+&__body{
+  @include flex;
+  flex-direction: row;
+  padding: 0;
+  height: 100%;
+}
+
+&__form-box{
+  padding: 32px; 
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+}
+&__form{
+border-radius: 8px;
+background: white;
+box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+width: 100%;
+margin: auto;
+max-width: 350px;
+padding: 24px;
+
+}
+&__image-corp{
+  @include flex;
+  background-color: $BG;
+  flex-grow: 1;
+  height: 100%;
+}
+@media screen and (max-width: 768px) {
+  
+    &__body{
+      flex-direction: column-reverse;
+    }
+    &__form-box{
+      padding: 16px;
+      max-width: inherit;
+      height: 100%;
+      @include flex;
+    }
+    &__form{
+      max-width: 100%;
+    }
+  
+
+}
+}

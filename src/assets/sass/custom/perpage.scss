@@ -1,0 +1,13 @@
+.custom-table{
+  &__perpage {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: right;
+    justify-content: md-start;
+  }
+  &__perpage-label{
+    border: 1px solid #d2d6e5;
+    background-color: #ffffff;
+  }
+}

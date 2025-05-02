@@ -1,0 +1,236 @@
+@mixin for-size($size) {
+  @if $size == phone {
+    @media (max-width: 320px) {
+      @content;
+    }
+  } @else if $size == phone-mid {
+    @media (max-width: 375px) {
+      @content;
+    }
+  } @else if $size == phone-big {
+    @media (max-width: 425px) {
+      @content;
+    }
+  } @else if $size == phone-xbig {
+    @media (max-width: 535px) {
+      @content;
+    }
+  } @else if $size == tablet-small {
+    @media (max-width: 635px) {
+      @content;
+    }
+  } @else if $size == tablet-portrait {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $size == tablet-landscape {
+    @media (max-width: 991px) {
+      @content;
+    }
+  } @else if $size == desktop {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  } @else if $size == desktop-mid {
+    @media (max-width: 1200px) {
+      @content;
+    }
+  } @else if $size == desktop-mid-big {
+    @media (max-width: 1320px) {
+      @content;
+    }
+  } @else if $size == desktop-big {
+    @media (max-width: 1400px) {
+      @content;
+      
+    }
+  } @else if $size == desktop-xbig {
+    @media (max-width: 1920px) {
+      @content;
+    }
+  }
+}
+@mixin flex($justify:center, $gap: false, $alignItems: center) {
+  display: flex;
+  justify-content: $justify;
+  align-items: $alignItems;
+  @if $gap {
+    gap: $gap;
+  }
+}
+@mixin grid($columns, $gap) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+@mixin text($size, $weight: initial, $line-height: initial, $align: initial) {
+  font-style: normal;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+  text-align: $align;
+}
+@mixin content($width: 1500px, $padding: 0 16px) {
+  display: block;
+  width: 100%;
+  max-width: $width;
+  margin: 0 auto;
+  padding: $padding;
+}
+
+@mixin shadow($color: rgba(0, 0, 0, 0.25), $x: 0px, $y: 4px, $blur: 4px) {
+  box-shadow: $x $y $blur $color;
+}
+
+@mixin shadow-hover($color: rgba(0, 0, 0, 0.25), $x: 0px, $y: 4px, $blur: 4px) {
+  box-shadow: $x $y $blur $color;
+}
+
+@mixin main-box($width: 100%, $padding: 32px, $min-height: inherit) {
+  @include flex(center, false, stretch);
+  width: $width;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  min-height: $min-height;
+  padding: $padding;
+}
+
+@mixin aside-box($width: 100%, $padding: 32px){
+  width: $width;
+  flex-grow: 1;
+  min-height: $width;
+  padding: $padding;
+}
+
+@mixin article-box($direccion: column, $padding: 8px) {
+  flex-direction: $direccion;
+  padding: $padding;
+  display: flex;
+  flex-grow: 1;
+}
+
+@mixin section-box($width: inherit, $padding: 8px, $min-height:24px) {
+  width: $width;
+  padding: $padding;
+  min-height: $min-height;
+  flex-grow: 1;
+}
+@mixin background-img($image) {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: $image;
+}
+
+@mixin load(){
+  background: linear-gradient(
+      90deg,
+      rgba(221, 221, 221, 0.6) 8%,
+      rgba(238, 238, 238, 0.6) 25%,
+      rgba(221, 221, 221, 0.6) 50%
+    );
+    animation: backgroundPulse forwards 7s linear infinite;
+}
+
+@mixin button($type: solid, $radius: 0px, $width: 300px ) {
+  @if $type == solid {
+    --shadow-hover: none;
+    --text: var(--text-invert);
+    --text-hover: var(--text-color);
+    --bg-color: var(--primary-color);
+    --bg-hover-color: var(--text-invert);
+    --border-color: var(--primary-color); 
+    --border-color-hover: var(--text-color);
+    a{
+      color: var(--text)!important;
+      
+    }
+    &:hover a{
+      color: var(--text-hover)!important;
+    }
+    .icon{
+      color: var(--text)!important;
+    }
+    &:hover .icon{
+      color: var(--text-hover)!important;
+    }
+  } @else if $type == outline {
+    --shadow-hover: none;
+    --text: var(--text-color);
+    --text-hover: var(--text-invert);
+    --bg-color: transparent!important;
+    --bg-hover-color: var(--primary-color);
+    --border-color: var(--text-color); 
+    --border-color-hover: var(--primary-color);
+    a{
+      color: var(--text)!important;
+      
+    }
+    &:hover a{
+      color: var(--text-hover)!important;
+    }
+    .icon{
+      color: var(--text)!important;
+    }
+    &:hover .icon{
+      color: var(--text-hover)!important;
+    }
+  } @else if $type == whatassap {
+  --bg-color: #00BB2D;
+  --shadow: none;
+  --shadow-hover: none;
+  --text:var( --text-contrast-color);
+  --bg-hover-color:  #04c230;
+    border: 1px solid  #00BB2D;
+}  
+  @include flex(center, 10px);
+  @include text(1.4rem, 500, 1.8rem, center);
+  letter-spacing: 1px;
+  text-wrap: nowrap;
+  width: auto;
+  max-width: $width;
+  // height: 45px;
+  padding: 8px 16px;
+  padding-top: 10px;
+  background-color: var(--bg-color);
+  text-decoration: none;
+  border-radius: $radius;
+  border: 1px solid var(--border-color);
+  transition: all 0.1s linear;
+  will-change: auto;
+  color: var(--text);
+  // &--right {
+  //   flex-direction: row-reverse;
+  // }
+  &:not(:disabled):hover {
+    cursor: pointer;
+    background-color: var(--bg-hover-color);
+    box-shadow: var(--shadow-hover);
+    color: var(--text-hover);
+    border: 1px solid var(--border-color-hover);
+  }
+  &:not(:disabled):active {
+    box-shadow: none;
+  }
+  &:active {
+    transform: translateY(0);
+  }
+  &:disabled {
+    cursor: default;
+    opacity: .3;
+  }
+}
+
+@mixin border($color: black, $radius: 0px, $style: solid, $width: 1px){
+  border: $width $style $color;
+  border-radius: $radius;
+}
+
+@keyframes backgroundPulse {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100em 0;
+  }
+}

@@ -1,0 +1,61 @@
+@import "./Mixins";
+
+.form{
+  &__disabled{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 100;
+  }
+  &__box{
+    @include flex(space-between, 16px, center);
+  }
+  &__submit{
+    width: 100%;
+    padding-top: 32px;
+  }
+  &__submit-btn{
+    @include button(solid, 32px);
+    max-width: inherit;
+    width: 100%;
+    padding: 8px;
+  }
+  &__text{
+    @include text(2.4rem, 400, 2.8rem, left);
+    margin: 16px 0 32px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .form{
+    &__box{
+      &--mobile{
+        flex-direction: column ;
+        gap: 0;
+        .field{
+          width: 100%;
+
+        }
+      }
+    }
+  }
+}
+.success {
+  color: #03a303;
+}
+.check{
+  &__content {
+  position: absolute;
+  top: 0;
+  left: 60%
+}
+  &__font {
+    @include text(2rem, 600, 2.8rem, center);
+  }
+  &__label {
+    @include text(1.2rem, 500, 1.6rem, left);
+  }
+}

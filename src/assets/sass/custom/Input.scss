@@ -1,0 +1,217 @@
+@import "./Mixins";
+
+// variable para el texto
+$font-input: var(--text-color);
+$font-input-black: var(--text-color);
+
+input:-internal-autofill-selected {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: $font-input !important;
+  &[data-font-black="true"]{
+    color: $font-input-black;
+  }
+}
+input:-webkit-autofill,
+  input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+  }
+.field{
+  @include flex(center, 8px, stretch);
+  flex-direction: column;
+  flex-grow: 1;
+  margin-bottom: 4px;
+}
+
+.field--picker{
+  max-width: 231px;
+  .input{
+    &__box{
+      padding: 0;
+      border: none;
+      .dp{
+        &__input{
+          height: 36px;
+          @include text(1.6rem, 400, 2.4rem);
+          color: $font-input; 
+        }
+        &__menu{
+          @include text(1.4rem, 400, 2.4rem);
+        }
+        &__action_button{
+          @include text(1.3rem, 400, 2.4rem);
+          padding: 4px 8px;
+        }
+        &__action_select{
+          background-color: $font-input
+        }
+        &__selection_preview{
+          @include text(1.2rem, 500, 2.4rem);
+          color: $font-input;
+        }
+      }
+    }
+  } 
+}
+
+.label {
+  @include text(1.6rem, 600, 2rem, left);
+  @include flex(center, false, stretch);
+  color: $font-input;
+  align-self: flex-start; //opcional
+  flex-grow: 1;
+  &[data-font-white="true"]{
+    color: $font-input-black;
+  }
+  // &::after {
+  //   content: "*";
+  //   color: var(--error-color);
+  // }
+  &__text{
+    flex-grow: 1;
+  }
+}
+
+.input {
+  $root: &;
+  &__box{
+    @include flex(center, false, center);
+    position: relative;
+    @include border(rgb(223, 223, 223), 8px);
+    padding: 2px 8px;
+    margin-bottom: 16px;
+    background-color: transparent;
+    background-image: blur(10px);
+    // &[data-font-black="true"]{
+    //   @include border(rgb(223, 223, 223));
+    // }
+  }
+
+  &__input {
+    @include text(1.6rem, 400, 2.4rem);
+    color: $font-input;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
+    height: 30px;
+    &::placeholder {
+      @include text(1.3rem, 100, 2.4rem);
+      letter-spacing: .4px;
+      color: $font-input;
+    }
+    &[data-font-black="true"]{
+      color: $font-input-black;
+      &::placeholder {
+        color: $font-input-black;
+        font-weight: 300;
+      }
+    }
+    &--select{
+      cursor: pointer;
+      // height: 40px;
+    }
+    &--textarea{
+      height: auto;
+    }
+  }
+  // &__bullet{}
+  &__hide-pass{margin-right: 4px;}
+  &__show-pass{margin-right: 4px;}
+  &__check-success{
+    filter: invert(85%) sepia(34%) saturate(4799%) hue-rotate(90deg) brightness(94%) contrast(98%);
+  }
+  &__check-danger{
+    filter: invert(17%) sepia(100%) saturate(5161%) hue-rotate(339deg) brightness(106%) contrast(110%);;
+  }
+  &__check--select{
+    // filter: invert(1);
+    &[data-check='true']{
+      filter: invert(85%) sepia(34%) saturate(4799%) hue-rotate(90deg) brightness(94%) contrast(98%);
+    }
+    // &[data-check='false']{
+    //   filter: invert(17%) sepia(100%) saturate(5161%) hue-rotate(339deg) brightness(106%) contrast(110%);;
+    // }
+  }
+  &__text-danger{
+    font-size: 1.2rem;
+    line-height: normal;
+    position: absolute;
+    bottom: -20px;
+    color: var(--error-color);
+    left: 3px;
+  }
+  &--white {
+    @include border(#d9d9d9, 5px);
+    color: var(--text-color);
+  }
+  &--white::placeholder {
+    @include text(1.6rem, 400, 2.4rem);
+    color: #9a9a9a;
+  }
+  &[data-error="true"] {
+    border: 1px solid var(--error-color);
+  }
+  border-radius: 5px;
+  &__error {
+    @include text(1.2rem, 400, 1.5rem);
+    color: var(--error-color);
+  }
+  &--radio {
+  }
+  &--check {
+  }
+  &--file {
+  }
+  
+  &__area {
+  }
+  &__checkbox {
+  }
+  &__checkbox-error {
+  }
+  &__radio {
+  }
+  &__radio-error {
+  }
+  &__select {
+    padding-left: 8px;
+    &[data-require="true"] {
+      border: 1px solid var(--error-color);
+    }
+  }
+  &__select-value {
+  }
+  &__select-options {
+  }
+  &__select-option {
+  }
+  &__file {
+  }
+  &__profile {
+  }
+  &__profile-image {
+  }
+  &__show {
+  }
+  &__text {
+    &--check {
+    }
+    &--radio {
+    }
+  }
+}
+.input-icon {
+  position: relative;
+}
+.input-icon--icon {
+  position: absolute;
+
+  height: 100%;
+  left: 15px;
+  top: 0px;
+  fill: #9a9a9a;
+}
+.input--icon {
+  padding-left: 40px;
+}
+@import "./responsive/Input";

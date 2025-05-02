@@ -1,0 +1,42 @@
+@import "./Mixins";
+
+.main{
+  &__header{
+    width: 100%;
+  }
+  &__header-container{
+    @include border;
+    width: 100%;
+  }
+  &__header-title{
+    @include flex;
+    width: 20%;
+  }
+  &__header-action{
+    @include flex(flex-end);
+    @include border;
+    flex-grow: 1;
+  }
+  &__body{
+    @include border;
+    width: 100%;
+    min-height: 200px;
+  }
+  &__body-aside{
+    
+    @include border;
+    width: 20%;
+  }
+  &__nav-item{
+    @include flex(flex-start, 8px);
+    @include border;
+    margin-left: -20px;
+  }
+  &__nav-bullet{
+    @include border;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: red;
+  }
+}

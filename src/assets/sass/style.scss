@@ -1,0 +1,102 @@
+//
+// font-family:
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+//
+@import "~bootstrap/scss/bootstrap";
+@import "./custom/Mixins";
+
+body,
+* {
+  box-sizing: border-box;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --primary-color: #0A3D70;
+  --secondary-color: #005099;
+  --bg-color: #F0F7FF;
+  // --bg-second-color: ;
+  --text-color: #000000;
+  ;
+  --text-custom: #434343;
+  --text-invert: #FFFFFF;
+  --error-color: #f6323f;
+  // // --warning-color: ;
+  --primary-font: "Montserrat", sans-serif;
+  // // --secondary-font: ;
+}
+
+
+html {
+  font-size: 62.5%;
+  font-family: var(--primary-font) !important;
+
+  // @media screen and (max-width: 900px) {
+  //   font-size: 55%;
+  // }
+}
+
+body {
+  font-family: var(--primary-font) !important;
+}
+
+h1, h2, h3, h4, h5, h6, p{
+  margin: 0;
+}
+
+h1{
+  @include text(3rem, 600, auto);
+  color: var(--text-color);
+}
+h2{
+  @include text(2.4rem, 600, auto);
+  color: var(--text-color);
+}
+h3{
+  @include text(2rem, 600, auto);
+  color: var(--text-color);
+}
+// h4{
+//   @include text(2.4rem, 700, auto);
+//   color: var(--text-color);
+// }
+// h5{
+//   @include text(2.2rem, 500, auto);
+//   color: var(--text-color);
+// }
+h6{
+  @include text(1.4rem, 600, auto);
+  color: var(--text-color);
+}
+// p{
+//   white-space: break-spaces;
+//   @include text(1.6rem, 400, 2.4rem);
+//   margin-bottom: 0;
+// }
+
+input,
+select,
+textarea,
+button {
+  background-color: transparent;
+  border: 0;
+}
+
+
+@keyframes indeterminateAnimation {
+  0% {
+    transform:  translateX(0) scaleX(0);
+  }
+  40% {
+    transform:  translateX(0) scaleX(0.4);
+  }
+  100% {
+    transform:  translateX(100%) scaleX(0.5);
+  }
+}
+
+
+
+
