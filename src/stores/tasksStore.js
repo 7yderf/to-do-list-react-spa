@@ -5,7 +5,7 @@ export const useTasksStore = create((set) => {
   const getDefaultFilter = () => ({
     status: "pendiente",
     category_id: "",
-    order: "asc",
+    order: "desc",
   });
 
   // Estado inicial
@@ -18,7 +18,7 @@ export const useTasksStore = create((set) => {
     total: 1,
     tasks: [],
     filters: getDefaultFilter(),
-    filtesParams: '&order=asc&status=pendiente'
+    filtesParams: '&order=desc&status=pendiente'
   };
 
   return {

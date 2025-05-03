@@ -36,22 +36,43 @@ $box-shadow: 0px 0px 37px -3px rgba(0, 0, 0, 0.060),5px 0px 13px -8px rgba(0, 0,
     min-height: 200px;
   }
   &__body-aside{
+    display: flex;
+    flex-direction: column;
     width: 20%;
+    min-width: 250px;
     background-color: #EAEAEA80;
     padding: 16px;
     p{
       @include text(1.6rem, 600, auto);
-      margin-bottom: 16px;
+      margin-bottom: 0px;
     }
+  }
+  &__nav{
+    flex-grow: 1;
+  }
+  &__body-aside-header{
+    @include flex(space-between, 8px);
+    margin-bottom: 16px;
+  }
+  &__body-reload{
+    cursor: pointer;
   }
   &__nav-item{
     @include flex(flex-start, 8px);
     @include text(1.4rem, 500, auto);
     padding-bottom: 4px;
     margin-left: -20px;
+    cursor: pointer;
+    &:hover{
+      background-color: #EAEAEA;
+      border-radius: 8px;
+    }
+    &[data-active="true"]{
+      background-color: #dedede;
+      border-radius: 8px;
+    }
   }
   &__nav-bullet{
-    
     width: 16px;
     height: 16px;
     border-radius: 50%;
@@ -81,6 +102,47 @@ $box-shadow: 0px 0px 37px -3px rgba(0, 0, 0, 0.060),5px 0px 13px -8px rgba(0, 0,
     &--right{
       
       border-radius: 0 8px 8px 0;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .main{
+    &__body-tasks-actions{
+      flex-direction: column;
+      button{
+        text-align: center;
+        width: 100%;
+        margin-bottom: 8px;
+        &:last-child{
+          margin-bottom: 0px;
+        }
+      }
+    }
+    &__header-title{
+      width: auto;
+      h2{
+        @include text(2rem, 600,);
+      }
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .main{
+    &__body{
+      flex-direction: column;
+    }
+    &__body-aside{
+      width: 100%;
+      min-width: 0px;
+      margin-bottom: 16px;
+    }
+    &__header-title{
+      width: auto;
+      h2{
+        @include text(2rem, 600,);
+      }
     }
   }
 }

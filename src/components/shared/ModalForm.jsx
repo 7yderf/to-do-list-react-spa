@@ -33,8 +33,10 @@ export const ModalForm = ({
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title>
-            {idTask ? 'Editar Tarea' : 'Nueva Tarea'}
+          <Modal.Title className='w-100 py-3'>
+            <h2 className="text-center">
+            {idTask ? 'Editar Tarea' : 'Agregar Tarea'}
+            </h2>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -44,6 +46,7 @@ export const ModalForm = ({
             onSubmit={onCreate}
             initialValues={defaultValues}
             bodyTask={bodyTask}
+            onCancel={onHide} 
           />
         </Modal.Body>
       </Modal>

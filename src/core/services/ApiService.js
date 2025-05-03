@@ -12,8 +12,8 @@ class ApiService {
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }
-      config.headers.Accept = 'application/vnd.api+json';
-      config.headers['Content-Type'] = 'application/vnd.api+json';
+      // config.headers.Accept = 'application/vnd.api+json';
+      config.headers['Content-Type'] = 'application/json';
       return config;
     });
   }

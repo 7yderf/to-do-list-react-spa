@@ -1,92 +1,140 @@
+// 📁 Imports
 import { useEffect, useState } from "react";
-import { Button, Modal, Row, Col, Card } from "react-bootstrap";
-import { CardTask } from "@/components/card/cardTask";
-import { useTasks } from "@/hooks/useTasks";
-import { useActivities } from "@/hooks/useActivities";
-import { useTask } from '@/hooks/useTask'
-import { ModalForm} from "@/components/shared/ModalForm";
-import {  Paginator } from "@/components/shared/Paginador";
-import {  PerPageSelector } from "@/components/shared/PerPageSelector";
-import { Loader } from '@/components/shared/Loader';
-
+import { Button } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 
-// import { TablePaginator, TablePerpage } from '@/components/common';
+import { CardTask } from "@/components/card/cardTask";
+import { ModalForm } from "@/components/shared/ModalForm";
+import { ModalFormActivity } from "@/components/shared/ModalFormActivity";
+import { Paginator } from "@/components/shared/Paginador";
+import { PerPageSelector } from "@/components/shared/PerPageSelector";
+import { Loader } from "@/components/shared/Loader";
+
+import { useTasks } from "@/hooks/useTasks";
+import { useActivities } from "@/hooks/useActivities";
+import { useActivity } from "@/hooks/useActivity";
+import { useTask } from "@/hooks/useTask";
+
 import "@/assets/sass/custom/reports.scss";
 
+// 📄 Componente principal
 export const ReportsView = () => {
+  // 🔁 Estados y hooks
   const { activities } = useActivities();
-  const { currentPage, from, lastPage,perPage,to,total,isLoading,isError,getPage,setPerPage,filters,setfilter, tasks } = useTasks();
-  const { task, bodyTask, isLoading:isLoadingTask, setTask, setIdTask, createTask, deleteTask,getDefaultTask,isUpdatingSuccess, isErrorUpdating } = useTask();
+  const {
+    bodyActivity,
+    setActivity,
+    createActivity,
+    isUpdatingSuccess: isUpdatingSuccessActivity,
+    isErrorUpdating: isErrorUpdatingActivity
+  } = useActivity();
 
+  const {
+    currentPage,
+    from,
+    lastPage,
+    perPage,
+    to,
+    total,
+    getPage,
+    setPerPage,
+    filters,
+    setfilter,
+    tasks
+  } = useTasks();
+
+  const {
+    task,
+    bodyTask,
+    setTask,
+    setIdTask,
+    createTask,
+    deleteTask,
+    isUpdatingSuccess,
+    isErrorUpdating
+  } = useTask();
+
+  const [taskActive, setTaskActive] = useState("pendiente");
+  const [activityActive, setActivityActive] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [showModalActivity, setShowModalActivity] = useState(false);
+
+  const [modalDefaultValues] = useState({
+    title: "",
+    description: "",
+    category_id: "",
+    status: "pendiente"
+  });
+
+  const [activityDefaultValues] = useState({
+    name: "",
+    color: "#000000"
+  });
+
+  // 🧠 Efectos
   useEffect(() => {
     document.title = "Mis Tareas";
   }, []);
 
-  const [taskActive, setTaskActive] = useState('pendiente');
+  useEffect(() => {
+    if (isUpdatingSuccess || isErrorUpdating) {
+      setShowModal(false);
+      setIdTask(null);
+      handleCloseModal();
+    }
+  }, [isUpdatingSuccess, isErrorUpdating]);
 
+  useEffect(() => {
+    if (isUpdatingSuccessActivity || isErrorUpdatingActivity) {
+      setShowModalActivity(false);
+      setActivity(null);
+    }
+  }, [isUpdatingSuccessActivity, isErrorUpdatingActivity]);
+
+  // 🧩 Handlers
   const handleFilter = (status) => {
-  
     setTaskActive(status);
-    setfilter({
-      ...filters,
-      status,
-    });
+    setfilter({ ...filters, status });
   };
 
-  const [showModal, setShowModal] = useState(false);
+  const handleCategory = (id) => {
+    setActivityActive(id);
+    setfilter({ ...filters, category_id: id });
+  };
+
+  const handleCloseModal = () => {
+    setTask(modalDefaultValues);
+  };
 
   const editTask = (task) => {
     setIdTask(task.id);
-    //  activar modal
-    setShowModal(true)
-  }
-
+    setShowModal(true);
+  };
 
   const deletTask = (id) => {
-    deleteTask(id)
-  }
+    deleteTask(id);
+  };
 
   const finishTask = (task) => {
     const updatedTask = {
       ...bodyTask,
-      attributes:{
+      attributes: {
         id: task.id,
         title: task.title,
         description: task.description,
-        status: 'finalizada'
+        status: "finalizada"
       }
     };
     setTask(updatedTask);
-    createTask({ task: {data:updatedTask}, id: task.id });
-  }
-
-  const [modalDefaultValues] = useState({
-    title: '',
-    description: '',
-    category_id: '',
-    status: 'pendiente'
-  });
-
-  const handleCloseModal = () => {
-    setTask(modalDefaultValues); // Resetear estado de la tarea
+    createTask({ task: { data: updatedTask }, id: task.id });
   };
 
-  useEffect(() => {
-    if (isUpdatingSuccess || isErrorUpdating) {
-      
-      setShowModal(false); 
-      setIdTask(null);
-      handleCloseModal()
-    }
-  }, [isUpdatingSuccess, isErrorUpdating]);
-
-  
-
+  // 🖼️ Render
   return (
     <main className="main w-100">
       <div className="main__header container">
-        <div className="main__header-container d-flex  ">
+        {/* Header */}
+        <div className="main__header-container d-flex">
           <div className="main__header-title">
             <h2>Mis tareas</h2>
           </div>
@@ -95,13 +143,12 @@ export const ReportsView = () => {
               <Icon icon="tabler:upload" className="me-2" />
               Agregar tarea
             </button>
-
             <ModalForm
               onShow={showModal}
               onHide={() => {
                 setShowModal(false);
-                setIdTask(null); // Limpiar al cerrar
-                handleCloseModal(); // Si es necesario más limpieza
+                setIdTask(null);
+                handleCloseModal();
               }}
               idTask={task?.id}
               activities={activities}
@@ -111,15 +158,31 @@ export const ReportsView = () => {
             />
           </div>
         </div>
+
+        {/* Cuerpo principal */}
         <div className="main__body d-flex">
+          {/* Aside (categorías) */}
           <div className="main__body-aside">
-            <p>Categorias</p>
+            <div className="main__body-aside-header">
+              <p>Categorías</p>
+              <Icon
+                icon="tabler:refresh"
+                width="20"
+                className="main__body-reload"
+                onClick={() => handleCategory("")}
+              />
+            </div>
             <ul className="main__nav">
               {!activities.length ? (
                 <Loader size="small" />
               ) : (
                 activities.map((activitie) => (
-                  <li key={activitie.id} className="main__nav-item">
+                  <li
+                    key={activitie.id}
+                    className="main__nav-item"
+                    data-active={activitie.id === activityActive}
+                    onClick={() => handleCategory(activitie.id)}
+                  >
                     <div
                       className="main__nav-bullet"
                       style={{ backgroundColor: activitie.color }}
@@ -129,7 +192,19 @@ export const ReportsView = () => {
                 ))
               )}
             </ul>
+            <Button onClick={() => setShowModalActivity(true)}>
+              <Icon icon="tabler:plus" /> Nueva categoría
+            </Button>
+            <ModalFormActivity
+              onShow={showModalActivity}
+              onHide={() => setShowModalActivity(false)}
+              onCreate={createActivity}
+              defaultValues={activityDefaultValues}
+              bodyActivity={bodyActivity}
+            />
           </div>
+
+          {/* Tabla de tareas */}
           <div className="main__body-table">
             <div className="main__body-tasks-type">
               <div className="main__body-tasks-actions">
@@ -161,7 +236,7 @@ export const ReportsView = () => {
               />
             )}
 
-            {tasks.length && (
+            {tasks.length > 0 && (
               <div className="d-flex justify-content-between pt-5">
                 <PerPageSelector
                   perPage={perPage}
@@ -169,7 +244,6 @@ export const ReportsView = () => {
                   setPerPage={setPerPage}
                   total={total}
                 />
-
                 <Paginator
                   currentPage={currentPage}
                   from={from}
@@ -187,7 +261,3 @@ export const ReportsView = () => {
     </main>
   );
 };
-
-
-
-

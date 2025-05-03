@@ -3,12 +3,13 @@ import * as Yup from 'yup';
 import TextInput from '@/components/form/components/TextInput';
 import SelectInput from '@/components/form/components/SelectInput';
 import TextAreaInput from '@/components/form/components/TextAreaInput';
+import '@/assets/sass/custom/formTask.scss';
 
 
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Requerido'),
   category_id: Yup.string().required('Seleccione una categoría'),
-  description: Yup.string(),
+  description: Yup.string().required('Requerido'),
 });
 
 export const FormTask = ({ 
@@ -16,7 +17,8 @@ export const FormTask = ({
   onSubmit,
   bodyTask, 
   initialValues,
-  innerRef 
+  innerRef,
+  onCancel 
 }) => {
   return (
     <Formik
@@ -32,19 +34,19 @@ export const FormTask = ({
           ...bodyTask,
           attributes: {
             ...values,
-            status: 'pendiente',
+            status: "pendiente",
           },
         };
-        onSubmit({task:{data: body}, id});
+        onSubmit({ task: { data: body }, id });
         setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (
-        <Form>
+        <Form className="p-4">
           <div className="form__box form__box--mobile">
             <TextInput
               name="title"
-              label="Título de la tarea"
+              label="Nombre de tarea"
               placeholder="Ingrese el título"
             />
           </div>
@@ -52,7 +54,7 @@ export const FormTask = ({
           <div className="form__box form__box--mobile">
             <SelectInput
               name="category_id"
-              label="Categoría"
+              label="Selecciona categoría"
               options={activities.map((a) => ({
                 value: a.id,
                 label: a.name,
@@ -66,13 +68,22 @@ export const FormTask = ({
               placeholder="Ingrese la descripción"
             />
           </div>
-          <button
-            type="submit"
-            disabled={isSubmitting}
-            className="btn btn-primary"
-          >
-            {isSubmitting ? "Guardando..." : "Guardar Tarea"}
-          </button>
+          <div className="d-flex justify-content-center gap-3 mt-4">
+            <button
+              type="button"
+              className="formTask__cancel"
+              onClick={onCancel}
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="formTask__submit"
+            >
+              {isSubmitting ? "Guardando..." : "Guardar"}
+            </button>
+          </div>
         </Form>
       )}
     </Formik>

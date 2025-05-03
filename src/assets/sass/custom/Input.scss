@@ -109,7 +109,7 @@ input:-webkit-autofill,
     &--select{
       cursor: pointer;
       border-radius: 8px;
-      @include border(rgb(223, 223, 223), 8px);
+      border: none  !important;
       color: $font-input;
       height: 40px;
     }
@@ -167,6 +167,7 @@ input:-webkit-autofill,
   }
   
   &__area {
+    height: auto;
   }
   &__checkbox {
   }

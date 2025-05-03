@@ -53,12 +53,7 @@ const LoginView = () => {
             </button>
           </div>
 
-          <Link 
-            to="/recovery" 
-            className="form__auth-link"
-          >
-            *Recuperar contraseña
-          </Link>
+          
         </Form>
       </Formik>
     </main>

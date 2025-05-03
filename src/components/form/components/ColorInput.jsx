@@ -1,14 +1,20 @@
+// src/components/form/components/ColorInput.jsx
 import { useField } from 'formik';
 import '@/assets/sass/custom/Input.scss';
 
-const TextAreaInput = ({ label, ...props }) => {
+const ColorInput = ({ label, ...props }) => {
   const [field, meta] = useField(props);
 
   return (
     <div className="field">
       <label className="label">{label}</label>
       <div className="input__box">
-        <textarea {...field} {...props} className="input__input input__area" rows="4" />
+        <input 
+          {...field}
+          {...props}
+          type="color"
+          className={`input__input input__input--color ${meta.touched && meta.error ? 'is-danger' : ''}`}
+        />
         {meta.touched && meta.error && (
           <div className="input__text-danger">{meta.error}</div>
         )}
@@ -17,4 +23,4 @@ const TextAreaInput = ({ label, ...props }) => {
   );
 };
 
-export default TextAreaInput;
+export default ColorInput;
