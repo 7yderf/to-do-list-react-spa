@@ -14,6 +14,7 @@ export const LayoutAuth = () => {
         <section className="auth__image-corp container-fluid">
           {/* Si necesitas una imagen de fondo aquí */}
           {/* <BackgroundSrc from="auth-layout" imgSrc="/branding/logo.png" /> */}
+          <img src="/src/assets/images/todo.png" alt="Logo" className="auth__image-corp-logo" />
         </section>
       </article>
     </main>

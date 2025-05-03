@@ -4,6 +4,7 @@ import TextInput from '@/components/form/components/TextInput';
 import SelectInput from '@/components/form/components/SelectInput';
 import TextAreaInput from '@/components/form/components/TextAreaInput';
 
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required('Requerido'),
   category_id: Yup.string().required('Seleccione una categoría'),
@@ -12,27 +13,38 @@ const validationSchema = Yup.object().shape({
 
 export const FormTask = ({ 
   activities, 
-  onSubmit, 
+  onSubmit,
+  bodyTask, 
   initialValues,
   innerRef 
 }) => {
   return (
     <Formik
       innerRef={innerRef}
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        onSubmit(values);
+        console.log("🚀 ~ values:", values);
+        const { id } = values;
+
+        const body = {
+          ...bodyTask,
+          attributes: {
+            ...values,
+            status: 'pendiente',
+          },
+        };
+        onSubmit({task:{data: body}, id});
         setSubmitting(false);
       }}
     >
       {({ isSubmitting }) => (
         <Form>
-          
           <div className="form__box form__box--mobile">
             <TextInput
-              name="title" 
-              label="Título de la tarea" 
+              name="title"
+              label="Título de la tarea"
               placeholder="Ingrese el título"
             />
           </div>
@@ -41,25 +53,25 @@ export const FormTask = ({
             <SelectInput
               name="category_id"
               label="Categoría"
-              options={activities.map(a => ({
+              options={activities.map((a) => ({
                 value: a.id,
-                label: a.name
+                label: a.name,
               }))}
             />
           </div>
           <div className="form__box form__box--mobile">
             <TextAreaInput
-              name="description" 
-              label="Descripción" 
+              name="description"
+              label="Descripción"
               placeholder="Ingrese la descripción"
             />
           </div>
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isSubmitting}
             className="btn btn-primary"
           >
-            {isSubmitting ? 'Guardando...' : 'Guardar Tarea'}
+            {isSubmitting ? "Guardando..." : "Guardar Tarea"}
           </button>
         </Form>
       )}

@@ -14,6 +14,7 @@ export const useActivities = () => {
   const { isLoading, isError, error, data  } = useQuery({
     queryKey: ['activities'],
     queryFn: fetchActivities,
+    // refetchOnMount: false, // No recargar al montar el componente
   });
 
   useEffect(() => {

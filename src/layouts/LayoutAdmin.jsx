@@ -11,10 +11,11 @@ export const LayoutAdmin = () => {
       <article className="admin__body">
         <section className="admin__modules-box">
           <div className="admin__modules-header">
-            <div className="admin__modules-info-user">
-              <Icon icon="mdi:account-circle" width="40" height="40" />
+            <div className="admin__modules-info-user container">
+              <Icon icon="mdi:account-circle" width="36" height="36" className='admin__modules-info-user-icon' />
               <h5>{sesion.user}</h5>
               <button onClick={logout} disabled={isLoggingOut}>
+                <Icon icon="mdi:logout" width="16" height="16" />
                 {isLoggingOut ? <Loader size="small" /> : "Cerrar sesión"}
               </button>
             </div>

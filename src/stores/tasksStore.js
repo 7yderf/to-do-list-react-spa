@@ -13,7 +13,7 @@ export const useTasksStore = create((set) => {
     currentPage: 1,
     from: 1,
     lastPage: 1,
-    perPage: 2,
+    perPage: 6,
     to: 1,
     total: 1,
     tasks: [],

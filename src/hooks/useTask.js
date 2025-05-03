@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import {ApiService} from "@/core/services/ApiService";
 import { showAlert } from '@/hooks/useAlerts'
-import { useQuery, useMutation } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useTaskStore } from '@/stores/taskStore';
 
 const getTask = async (id) => {
@@ -22,9 +22,11 @@ const deleteTask = async (id) => {
 
 export const useTask = () => {
   const [errors, setErrors] = useState([]);
+  const queryClient = useQueryClient();
   const {
     task,
     idTask,
+    setIdTask,
     bodyTask,
     setTask,
     clearTask,
@@ -46,6 +48,7 @@ export const useTask = () => {
     onSuccess: (data) => {
       clearTask();
       showAlert('success', data.meta.message);
+      queryClient.invalidateQueries(['tasks']); // Invalida y refetch
     },
     onError: (error) => {
       showAlert('error', error.response.data.errors[0].detail);
@@ -57,6 +60,7 @@ export const useTask = () => {
     onSuccess: (data) => {
       clearTask();
       showAlert('success', data.meta.message);
+      queryClient.invalidateQueries(['tasks']); // Invalida y refetch
     },
     onError: (error) => {
       showAlert('error', error.response.data.errors[0].detail);
@@ -86,7 +90,8 @@ export const useTask = () => {
     errors,
     getDefaultTask,
     setTask,
-    
+    setIdTask,
+
     createTask: taskMutation.mutate,
     deleteTask: deleteTaskMutation.mutate,
 

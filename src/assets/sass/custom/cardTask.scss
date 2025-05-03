@@ -1,0 +1,58 @@
+@import "./Mixins";
+
+.cardTask{
+  display: flex;
+border-width: 1px;
+border-style: solid;
+border-radius: 4px;
+padding: 12px;
+max-width: 260px;
+min-width: 220px;
+flex-grow: 1;
+
+&__box{
+  @include flex(flex-start, 12px, stretch);
+  flex-wrap: wrap;
+  margin-top: 6rem;
+}
+&__body{
+  @include flex(center, 8px, stretch);
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+&__title{
+  @include text(1.4rem, 600, auto);
+  margin-bottom: 1.6rem;
+}
+&__text{
+  flex-grow: 1;
+}
+&__actions{
+  @include flex(flex-end);
+  margin-top: 0.4rem;
+}
+&__category-bullet{
+  display: flex;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  margin-right: auto;
+}
+&__actions-btn{
+  @include flex(center, 8px);
+}
+&__btn{
+  cursor: pointer;
+  &:hover{
+    opacity: 0.8;
+  }
+  &--danger{
+    background-color: #0DD169;
+    color: #fff;
+    border-radius: 4px;
+    padding: 6px 12px;
+    border: none;
+  }
+}
+}

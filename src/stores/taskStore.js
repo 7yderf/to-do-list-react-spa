@@ -32,6 +32,8 @@ export const useTaskStore = create((set) => {
       }
     })),
 
+    setIdTask: (id) => set({ idTask: id }),
+
     clearTask: () => set((state) => ({
       task: getDefaultTask(),
       bodyTask: {

@@ -5,12 +5,12 @@ const SelectInput = ({ label, options, ...props }) => {
   const [field, meta] = useField(props);
   
   return (
-    <div className="mb-3">
-      <label className="form-label">{label}</label>
+    <div className="field">
+      <label className="label">{label}</label>
       <select 
         {...field} 
         {...props} 
-        className={`form-select ${meta.touched && meta.error ? 'is-invalid' : ''}`}
+        className={`input__input input__input--select ${meta.touched && meta.error ? 'is-invalid' : ''}`}
       >
         <option value="">Seleccione...</option>
         {options?.map((option) => (
@@ -20,7 +20,7 @@ const SelectInput = ({ label, options, ...props }) => {
         ))}
       </select>
       {meta.touched && meta.error && (
-        <div className="invalid-feedback">{meta.error}</div>
+        <div className="input__text-danger">{meta.error}</div>
       )}
     </div>
   );

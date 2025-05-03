@@ -15,13 +15,11 @@ $box-shadow: 11px 0px 37px -3px rgba(0, 0, 0, 0.060),5px 0px 13px -8px rgba(0, 0
   flex-direction: row;
   padding: 0;
   height: 100%;
-  background: var(--bg-color);
 }
 
 &__modules-box{
   @include flex(flex-start);
   flex-direction: column;
-  background-color: $BG;
   flex-grow: 1;
   max-width: 100%;
   min-height: 100%;
@@ -36,24 +34,23 @@ $box-shadow: 11px 0px 37px -3px rgba(0, 0, 0, 0.060),5px 0px 13px -8px rgba(0, 0
   height: 80px;
   min-height: 80px;
   padding: 16px;
-  background-color: var(--text-invert);
+  background-color: var(--bg-color);
   border-bottom: 1px solid #e0e0e0;
 }
 &__modules-info-user-icon{
   color: var(--primary-color);
 }
 &__modules-info-user{
-  @include flex(space-between, 16px, center);
-  margin-right: 160px;
+  @include flex(flex-end, 16px, center);
   margin-left: auto;
   h5{
-    @include text(1.8rem, 500, auto, center);
+    @include text(1.6rem, 500, auto, center);
     padding-top: 4px;
     margin-bottom: 0;
   }
   button{
-    @include button(solid, 20px);
-    padding: 8px 32px 5px;
+    @include button(solid, 4px);
+    padding: 8px 16px;
   }
 }
 

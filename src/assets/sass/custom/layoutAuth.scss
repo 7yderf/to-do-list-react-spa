@@ -31,9 +31,14 @@ padding: 24px;
 }
 &__image-corp{
   @include flex;
-  background-color: $BG;
+  background-color: #0d14d1b0;
   flex-grow: 1;
   height: 100%;
+}
+&__image-corp-logo{
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
 }
 @media screen and (max-width: 768px) {
   

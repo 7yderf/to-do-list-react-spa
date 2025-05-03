@@ -1,42 +1,86 @@
 @import "./Mixins";
+$box-shadow: 0px 0px 37px -3px rgba(0, 0, 0, 0.060),5px 0px 13px -8px rgba(0, 0, 0, 0.049);
 
 .main{
+  min-height: calc(100vh - 150px);
+  @include flex;
+  padding-top: 24px;
   &__header{
     width: 100%;
+    background-color: var(--text-invert);
+    box-shadow: $box-shadow;
+    padding: 16px
   }
   &__header-container{
-    @include border;
     width: 100%;
+    padding-bottom: 8px   
   }
   &__header-title{
-    @include flex;
+    @include flex(flex-start);
     width: 20%;
+    h2{
+      @include text(2.4rem, 600,);
+    }
   }
   &__header-action{
     @include flex(flex-end);
-    @include border;
     flex-grow: 1;
+    button{
+      @include button(solid, 4px);
+      @include text(1.2rem);
+      padding: 8px 16px;
+    }
   }
   &__body{
-    @include border;
     width: 100%;
     min-height: 200px;
   }
   &__body-aside{
-    
-    @include border;
     width: 20%;
+    background-color: #EAEAEA80;
+    padding: 16px;
+    p{
+      @include text(1.6rem, 600, auto);
+      margin-bottom: 16px;
+    }
   }
   &__nav-item{
     @include flex(flex-start, 8px);
-    @include border;
+    @include text(1.4rem, 500, auto);
+    padding-bottom: 4px;
     margin-left: -20px;
   }
   &__nav-bullet{
-    @include border;
-    width: 10px;
-    height: 10px;
+    
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
-    background-color: red;
+  }
+  &__body-table{
+    flex-grow: 1;
+    padding: 16px;
+    padding-bottom: 0px
+  }
+  &__body-tasks-actions{
+    @include flex;
+    margin-bottom: 16px;
+    button{
+      background-color: #F2F0F0;
+      border: 1px solid #E0E0E0;
+      @include text(1.2rem, 500);
+      padding: .8rem 5.4rem;
+      &[data-active="true"]{
+        background-color: #D9D9D9;
+        
+      }
+    }
+    &--left{
+      border-radius: 8px 0 0 8px;
+      
+    }
+    &--right{
+      
+      border-radius: 0 8px 8px 0;
+    }
   }
 }
